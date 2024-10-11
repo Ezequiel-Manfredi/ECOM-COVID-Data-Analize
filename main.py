@@ -15,6 +15,7 @@ filePath = './datos/modelo_muestra.csv'
 
 totalizer = CountBy(counterFields = ['sexo','jurisdiccion_residencia'], percentageField = ['vacuna'])
 
+# file read line by line, transforming it into dictionaries to validate and process it
 with open(filePath,'r',encoding='utf-8') as file:
   fields = lineToList(file.readline())
   # limit = 0
