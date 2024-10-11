@@ -11,13 +11,17 @@ from action import CountBy
 lineToList = lambda x: x.replace('\n','').split(',')
 
 filePath = './datos/modelo_muestra.csv'
+# filePath = './datos/datos_nomivac_parte1.csv'
 
 totalizer = CountBy(['sexo','vacuna'])
 
 with open(filePath,'r',encoding='utf-8') as file:
   fields = lineToList(file.readline())
-
+  # limit = 0
   for line in file:
+    # if limit == 10000:
+    #   break
+    # limit += 1
     values = lineToList(line)
     record = {field: values[index] for index,field in enumerate(fields)}
     
