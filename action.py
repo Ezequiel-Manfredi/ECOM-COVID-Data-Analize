@@ -1,3 +1,5 @@
+from utils import FIELDS
+
 class CountBy:
   def __init__(self,counterFields,percentageField):
     self.selectedFields = {
@@ -22,7 +24,33 @@ class CountBy:
   
   def show(self):
     """
-    - emit counter's report
+    - emit counter's report and percentage
     """
-    print(self.total)
-    print(self.selectedFields)
+    print("total de registros procesados: "+f'{self.total}'.rjust(10))
+    self.__iterateDict(
+      self.counterFields,
+      lambda value : value,
+      lambda name,value: f'{name:<27}'+f'{value}'.rjust(10)
+    )
+    self.__iterateDict(
+      self.percentageField,
+      lambda value : (value/ self.total),
+      lambda name,value: f'{name:<27}{value:11.2%}'
+    )
+
+  def __iterateDict(self, dict, calc, msj):
+    """
+    - iterate the dictionary estructure and print summary
+
+    Args:
+        dict (dict): dictionary estructure
+        calc (lambda value): function that operates on a parameter value and returns a result
+        msj (lambda func): function that return a formatted string with the parameters name and value
+    """
+    for field in dict:
+      columnName = FIELDS.get(field,{'name': field})['name']
+      print(f'{columnName}:')
+      for value in self.selectedFields[field]:
+        valueName = FIELDS.get(field,{}).get(value,value)
+        calculatedValue = calc(self.selectedFields[field][value])
+        print('    '+msj(valueName,calculatedValue))
