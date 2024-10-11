@@ -13,7 +13,7 @@ lineToList = lambda x: x.replace('\n','').split(',')
 filePath = './datos/modelo_muestra.csv'
 # filePath = './datos/datos_nomivac_parte1.csv'
 
-totalizer = CountBy(['sexo','vacuna'])
+totalizer = CountBy(counterFields = ['sexo','jurisdiccion_residencia'], percentageField = ['vacuna'])
 
 with open(filePath,'r',encoding='utf-8') as file:
   fields = lineToList(file.readline())
