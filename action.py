@@ -1,4 +1,4 @@
-from utils import FIELDS
+from utils import REPORT_FIELDS
 
 class CountBy:
   def __init__(self,counterFields,percentageField):
@@ -48,9 +48,9 @@ class CountBy:
         msj (lambda func): function that return a formatted string with the parameters name and value
     """
     for field in dict:
-      columnName = FIELDS.get(field,{'name': field})['name']
+      columnName = REPORT_FIELDS.get(field,{'name': field})['name']
       print(f'{columnName}:')
       for value in self.selectedFields[field]:
-        valueName = FIELDS.get(field,{}).get(value,value)
+        valueName = REPORT_FIELDS.get(field,{}).get(value,value)
         calculatedValue = calc(self.selectedFields[field][value])
         print('    '+msj(valueName,calculatedValue))

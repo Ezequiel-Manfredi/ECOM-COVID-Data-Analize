@@ -1,4 +1,4 @@
-FIELDS = {
+REPORT_FIELDS = {
   'sexo': {
     'name': 'Distribución por Género',
     'M': 'Masculino',
