@@ -5,16 +5,21 @@
 # grupo_etario
 
 from utils import lineToList,inputPath,outputPath
+from Menu import Menu
 from validator import recordIsValid
 from CountBy import CountBy
 
 errorsFile = None
 
-totalizer = CountBy(counterFields = ['sexo','jurisdiccion_residencia'], percentageField = ['vacuna'])
-
 # file read line by line, transforming it into dictionaries to validate and process it
 with open(inputPath,'r',encoding='utf-8') as file:
   fields = lineToList(file.readline())
+  
+  menu = Menu(fields)
+  menu.showMenu()
+  
+  totalizer = CountBy(menu.countFields, menu.persentageFields)
+  
   # limit = 0
   for line in file:
     # if limit == 10000:
