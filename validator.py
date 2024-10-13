@@ -1,28 +1,41 @@
 import re
+from utils import PATTERNS
 
-PATTERNS = {
-  'SEXO': re.compile('M|F'),
-  'RANGO_EDAD': re.compile('(\d{2}-\d{2})|((\<|\>)\d{2})'),
-  'FECHA': re.compile('\d{4}-\d{2}-\d{2}')
-}
+def recordIsValid(record):
+  """
+  - validate 
 
-validators = [
-  {
-    'field': 'sexo',
-    'validate': [
-      lambda value: bool(PATTERNS['SEXO'].match(value))
-    ]
-  },
-  {
-    'field': 'grupo_etario',
-    'validate': [
-      lambda value: bool(PATTERNS['RANGO_EDAD'].match(value))
-    ]
-  },
-  {
-    'field': 'fecha_aplicacion',
-    'validate': [
-      lambda value: bool(PATTERNS['FECHA'].match(value))
-    ]
-  }
-]
+  Args:
+      record (dict): row information
+
+  Returns:
+      bool: record validity
+  """
+  errors = []
+  for field,value in record.items():
+    response = validate(field,value)
+    if(not response['ok']):
+      errors.append(response)
+  
+  return errors
+
+def validate(field, value):
+  """
+  - validating field values with regular expressions and otherwise return error messages
+
+  Args:
+      field (str): field name to validate
+      value (any): field value to validate
+
+  Returns:
+      dict: dictionary with fields ok (bool) and error (str) if necessary
+  """
+  match = re.fullmatch(PATTERNS.get(field)['pattern'],value,re.UNICODE)
+  result = {'ok': bool(match)}
+  if (not result['ok']):
+    result['error'] = f'Error en el campo "{field}": {PATTERNS[field]['error']}'
+  
+  return result
+
+if (__name__ == '__main__'):
+  print(validate('depto_residencia','Grl. José de San Martín'))
