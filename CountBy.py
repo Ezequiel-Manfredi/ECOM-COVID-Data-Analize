@@ -1,13 +1,13 @@
 from utils import REPORT_FIELDS
 
 class CountBy:
-  def __init__(self,counterFields,percentageField):
+  def __init__(self,counterFields,percentageFields):
     self.selectedFields = {
       field : {}
-      for field in counterFields + percentageField
+      for field in counterFields + percentageFields
     }
     self.counterFields = counterFields
-    self.percentageField = percentageField
+    self.percentageFields = percentageFields
     self.total = 0
     self.processed = 0
   
@@ -34,7 +34,7 @@ class CountBy:
       lambda name,value: f'{name:<27}'+f'{value}'.rjust(10)
     )
     self.__iterateDict(
-      self.percentageField,
+      self.percentageFields,
       lambda value : (value/ self.processed),
       lambda name,value: f'{name:<27}{value:11.2%}'
     )
