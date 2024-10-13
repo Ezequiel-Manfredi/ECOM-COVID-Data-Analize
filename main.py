@@ -23,6 +23,8 @@ with open(inputPath,'r',encoding='utf-8') as file:
     values = lineToList(line)
     record = {field: values[index] for index,field in enumerate(fields)}
     
+    totalizer.count()
+    
     errors = recordIsValid(record)
     if (len(errors) > 0):
       if (not errorsFile):

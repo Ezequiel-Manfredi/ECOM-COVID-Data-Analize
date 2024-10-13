@@ -9,6 +9,7 @@ class CountBy:
     self.counterFields = counterFields
     self.percentageField = percentageField
     self.total = 0
+    self.processed = 0
   
   def process(self,record):
     """
@@ -18,7 +19,7 @@ class CountBy:
     Args:
         record (dict): row information
     """
-    self.total += 1
+    self.processed += 1
     for key in self.selectedFields:
       self.selectedFields[key][record[key]] = self.selectedFields.get(key, 0).get(record[key], 0) + 1
   
@@ -26,7 +27,7 @@ class CountBy:
     """
     - emit counter's report and percentage
     """
-    print("total de registros procesados: "+f'{self.total}'.rjust(10))
+    print("total de registros procesados: "+f'{self.processed}/{self.total}'.rjust(10))
     self.__iterateDict(
       self.counterFields,
       lambda value : value,
@@ -34,7 +35,7 @@ class CountBy:
     )
     self.__iterateDict(
       self.percentageField,
-      lambda value : (value/ self.total),
+      lambda value : (value/ self.processed),
       lambda name,value: f'{name:<27}{value:11.2%}'
     )
 
@@ -54,3 +55,6 @@ class CountBy:
         valueName = REPORT_FIELDS.get(field,{}).get(value,value)
         calculatedValue = calc(self.selectedFields[field][value])
         print('    '+msj(valueName,calculatedValue))
+
+  def count(self):
+    self.total += 1
