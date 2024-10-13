@@ -6,7 +6,7 @@
 
 from utils import lineToList,inputPath,outputPath
 from validator import recordIsValid
-from action import CountBy
+from CountBy import CountBy
 
 errorsFile = None
 
