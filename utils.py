@@ -27,8 +27,8 @@ def extraAgeValidation(value):
     return False
   return True
 def extraDateValidation(value):
-  date = datetime.strptime(value, "%Y-%m-%d")
-  return date.date() < date.now().date()
+  recordDate = datetime.strptime(value, "%Y-%m-%d")
+  return recordDate.date() < datetime.now().date()
 
 PATTERNS = {
   'sexo': {
