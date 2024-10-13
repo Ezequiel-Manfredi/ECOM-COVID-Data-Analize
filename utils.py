@@ -1,3 +1,5 @@
+from datetime import datetime
+
 # row values extracted to a list 
 lineToList = lambda x: x.replace('\n','').split(',')
 
@@ -19,6 +21,15 @@ REPORT_FIELDS = {
   }
 }
 
+def extraAgeValidation(value):
+  elements = value.split('-')
+  if len(elements) > 1 and int(elements[1]) - int(elements[0]) < 0:
+    return False
+  return True
+def extraDateValidation(value):
+  date = datetime.strptime(value, "%Y-%m-%d")
+  return date.date() < date.now().date()
+
 PATTERNS = {
   'sexo': {
       'pattern': r'M|F',
@@ -26,7 +37,8 @@ PATTERNS = {
   },
   'grupo_etario': {
     'pattern': r'(\d{2}-\d{2})|(<\d{2})',
-    'error': 'solo se aceptan DD-DD o <DD'
+    'extra': extraAgeValidation,
+    'error': 'solo se aceptan mm-MM o <MM'
   },
   'jurisdiccion_residencia': {
     'pattern': r'[A-Za-zÀ-ÖØ-öø-ÿ\s\.]+',
@@ -62,7 +74,8 @@ PATTERNS = {
   },
   'fecha_aplicacion': {
     'pattern': r'\d{4}-\d{2}-\d{2}',
-    'error': 'solo se aceptan YYYY-MM-DD'
+    'extra': extraDateValidation,
+    'error': 'solo se aceptan YYYY-MM-DD antes del presente'
   },
   'vacuna': {
     'pattern': r'[A-Za-zÀ-ÖØ-öø-ÿ\s\.\d]+',

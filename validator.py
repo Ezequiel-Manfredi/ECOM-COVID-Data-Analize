@@ -30,8 +30,11 @@ def validate(field, value):
   Returns:
       dict: dictionary with fields ok (bool) and error (str) if necessary
   """
-  match = re.fullmatch(PATTERNS.get(field,{'pattern': r'.+'})['pattern'],value,re.UNICODE)
-  result = {'ok': bool(match)}
+  match = bool(re.fullmatch(PATTERNS.get(field,{}).get('pattern', r'.+'),value,re.UNICODE))
+  extra = PATTERNS.get(field,{}).get('extra', None)
+  if (match and extra):
+    match = extra(value)
+  result = {'ok': match}
   if (not result['ok']):
     result['error'] = f'Error en el campo "{field}": {PATTERNS[field]['error']}'
   
