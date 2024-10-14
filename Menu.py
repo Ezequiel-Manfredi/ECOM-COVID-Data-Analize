@@ -4,8 +4,8 @@ class Menu:
   def __init__(self,fields):
     self.showOp = False
     self.fieldOptions = [{'name': field}for field in fields]
-    self.counterFields = []
-    self.persentageFields = []
+    self.counterFields = set([])
+    self.persentageFields = set([])
     self.actionOptions = [
       {
         'name': 'seleccionar campos para sacar totales',
@@ -70,6 +70,6 @@ class Menu:
         if options[selection-1] and action:
           options[selection-1].get('do',lambda: None)()
         else:
-          listSelected.append(options[selection-1]['name'])
+          listSelected.add(options[selection-1]['name'])
       except Exception as error:
         print('Error: opcion invalida intente de nuevo')
