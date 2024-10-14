@@ -1,9 +1,3 @@
-# segunda_dosis = []
-# mayores_60_refuerzo = 0
-
-# cod_dosis_generica,nombre_dosis_generica
-# grupo_etario
-
 from utils import lineToList,inputPath,outputPath
 from Menu import Menu
 from validator import recordIsValid
