@@ -4,20 +4,20 @@ from datetime import datetime
 lineToList = lambda x: x.replace('\n','').split(',')
 
 # inputPath = './datos/datos_nomivac_parte1.csv'
-inputPath = './datos/modelo_muestra.csv'
+inputPath = './modelo_muestra.csv'
 outputPath = './registros_erroneos.csv'
 
 REPORT_FIELDS = {
   'sexo': {
-    'name': 'Distribución por Género',
+    'name': 'Distribución por Género (sexo)',
     'M': 'Masculino',
     'F': 'Femenino'
   },
   'jurisdiccion_residencia': {
-    'name': 'Dosis por Jurisdicción de Residencia'
+    'name': 'Dosis por Jurisdicción de Residencia (jurisdiccion_residencia)'
   },
   'vacuna': {
-    'name': 'Vacunas Aplicadas por Tipo de Vacuna'
+    'name': 'Vacunas Aplicadas por Tipo de Vacuna (vacuna)'
   }
 }
 
