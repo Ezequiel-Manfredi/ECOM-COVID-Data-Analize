@@ -8,6 +8,7 @@ from utils import lineToList,inputPath,outputPath
 from Menu import Menu
 from validator import recordIsValid
 from CountBy import CountBy
+from Specials import SpecialsOrders
 
 errorsFile = None
 
@@ -19,7 +20,7 @@ with open(inputPath,'r',encoding='utf-8') as file:
   menu.showMenu()
   
   totalizer = CountBy(menu.countFields, menu.persentageFields)
-  
+  specialOrder = SpecialsOrders()
   # limit = 0
   for line in file:
     # if limit == 10000:
@@ -41,8 +42,10 @@ with open(inputPath,'r',encoding='utf-8') as file:
       continue
     
     totalizer.process(record)
+    specialOrder.process(record)
   
   totalizer.show()
+  specialOrder.show()
 
 if (errorsFile):
   errorsFile.close()
