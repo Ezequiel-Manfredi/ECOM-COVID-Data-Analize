@@ -27,7 +27,7 @@ class CountBy:
     """
     - emit counter's report and percentage
     """
-    print("total de registros procesados: "+f'{self.processed}/{self.total}'.rjust(10))
+    print("Total de registros procesados: "+f'{self.processed}/{self.total}'.rjust(15))
     self.__iterateDict(
       self.counterFields,
       lambda value : value,
