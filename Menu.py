@@ -4,7 +4,7 @@ class Menu:
   def __init__(self,fields):
     self.showOp = False
     self.fieldOptions = [{'name': field}for field in fields]
-    self.countFields = []
+    self.counterFields = []
     self.persentageFields = []
     self.actionOptions = [
       {
@@ -12,7 +12,7 @@ class Menu:
         'do': lambda: self.__showOptions(
           'Seleccione de cuales contabilizar',
           self.fieldOptions,
-          self.countFields
+          self.counterFields
         )
       },
       {
@@ -25,11 +25,23 @@ class Menu:
       },
     ]
   
+  def getCounterFields(self):
+    response = self.counterFields
+    if not response:
+      response = ['sexo','jurisdiccion_residencia']
+    return response
+  
+  def getPersentageFields(self):
+    response = self.persentageFields
+    if not response:
+      response = ['vacuna']
+    return response
+  
   def showMenu(self):
     """
     - shows available actions to process file
     """
-    self.__showOptions('Elija una accion',self.actionOptions,action = True)
+    self.__showOptions('Elija una accion (0 = terminar o default)',self.actionOptions,action = True)
     os.system('cls')
   
   def __showOptions(self,msj,options,listSelected = [],action = False):

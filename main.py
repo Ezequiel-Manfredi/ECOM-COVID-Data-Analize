@@ -19,7 +19,7 @@ with open(inputPath,'r',encoding='utf-8') as file:
   menu = Menu(fields)
   menu.showMenu()
   
-  totalizer = CountBy(menu.countFields, menu.persentageFields)
+  totalizer = CountBy(menu.getCounterFields(),menu.getPersentageFields())
   specialOrder = SpecialsOrders()
   # limit = 0
   for line in file:
